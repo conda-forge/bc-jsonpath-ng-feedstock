@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/bc-jsonpath-ng-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bc-jsonpath-ng-{{ version }}.tar.gz
   sha256: 6ea4e379c4400a511d07605b8d981950292dd098a5619d143328af4e841a2320
 
 build:
@@ -14,14 +14,14 @@ build:
     - bc_jsonpath_ng=bc_jsonpath_ng.bin.jsonpath:entry_point
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 2
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - ply
     - decorator
 
@@ -33,6 +33,7 @@ test:
     - bc_jsonpath_ng --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/bridgecrewio/jsonpath-ng
